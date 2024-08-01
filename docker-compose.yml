@@ -15,7 +15,7 @@ services:
       - ./frontend/src:/app/src
     #Definir variable de entorno
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: http://104.248.216.5:3000
   api:
     build: ./backend
     ports:
