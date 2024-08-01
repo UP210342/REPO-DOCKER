@@ -1,12 +1,19 @@
+#Versión mínima que va a trabajar con docker
 version: "3.8"
 
+#Servicios que va a contener
 services:
+#frontend contenedor
   app:
+  #Construir la imágen de ésta carpeta
     build: ./frontend
+    #Asignación de puertos (izq host, derecha contenedor)
     ports:
       - 80:5173
+      #Medio de comunicación del host con el contenedor
     volumes:
       - ./frontend/src:/app/src
+    #Definir variable de entorno
     environment:
       VITE_API_URL: http://localhost:3000
   api:
@@ -19,16 +26,17 @@ services:
       - ./backend/app:/app/app
     depends_on:
       - db
-  api-tests:
-    image: holamundo-api
-    environment:
-      DB_URL: mongodb://db/gamifytest
-    volumes:
-      - ./backend/app:/app/app
-      - ./backend/tests:/app/tests
-    depends_on:
-      - db
-    command: npm test
+  #api-tests:
+    #image: holamundo-api
+    #environment:
+      #DB_URL: mongodb://db/gamifytest
+    #volumes:
+      #- ./backend/app:/app/app
+      #- ./backend/tests:/app/tests
+    #depends_on:
+      #- db
+    #command: npm test
+    #
   db:
     image: mongo:5.0.19-focal
     ports:
